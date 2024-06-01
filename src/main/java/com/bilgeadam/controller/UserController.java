@@ -1,5 +1,8 @@
 package com.bilgeadam.controller;
 
+import com.bilgeadam.dto.request.RegisterRequestDto;
+import com.bilgeadam.dto.response.FindAllResponseDto;
+import com.bilgeadam.dto.response.RegisterResponseDto;
 import com.bilgeadam.entity.User;
 import com.bilgeadam.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -54,6 +57,11 @@ public class UserController {
         return ResponseEntity.ok( userService.register(name, surName, password, email));
     }
 
+    @GetMapping("/register2")
+    public ResponseEntity<RegisterResponseDto> register2(RegisterRequestDto dto) {
+        return ResponseEntity.ok( userService.register2(dto));
+    }
+
 
     /*
         emaile gore kullanıcı getiren end point
@@ -85,4 +93,10 @@ public class UserController {
     public ResponseEntity<List<User>> findAllByEmailContainsIgnoreCase(String value){
         return ResponseEntity.ok( userService.findAllByEmailContainsIgnoreCase(value));
     }
+
+    @GetMapping("/find-all")
+    public ResponseEntity<List<FindAllResponseDto>> findAll(){
+        return ResponseEntity.ok( userService.findAll());
+    }
+
 }

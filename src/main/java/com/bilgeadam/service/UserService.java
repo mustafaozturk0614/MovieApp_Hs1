@@ -1,6 +1,10 @@
 package com.bilgeadam.service;
 
+import com.bilgeadam.dto.request.RegisterRequestDto;
+import com.bilgeadam.dto.response.FindAllResponseDto;
+import com.bilgeadam.dto.response.RegisterResponseDto;
 import com.bilgeadam.entity.User;
+import com.bilgeadam.mapper.Mapper;
 import com.bilgeadam.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -27,6 +31,25 @@ public class UserService {
     return userRepository.save(user);
     }
 
+    //responseDto donsun artık
+    public RegisterResponseDto register2(RegisterRequestDto dto) {
+        User user=User.builder()
+                .name(dto.getName())
+                .surName(dto.getSurName())
+                .password(dto.getPassword())
+                .email(dto.getEmail())
+                .build();
+           userRepository.save(user);
+        return  RegisterResponseDto.builder().id(user.getId()).email(user.getEmail()).build();
+    }
+    public RegisterResponseDto register3(RegisterRequestDto dto) {
+        User user= Mapper.toUser(dto);
+        userRepository.save(user);
+        return  Mapper.toRegisterResponseDto(user);
+
+        //return  Mapper.toRegisterResponseDto(userRepository.save(Mapper.toUser(dto)));
+    }
+
     public User findByEmail(String email){
         Optional<User> user= userRepository.findOptionalByEmail(email);
         if (user.isEmpty()){
@@ -49,5 +72,10 @@ public class UserService {
     }
     public List<User> findAllByEmailContainsIgnoreCase(String value){
         return userRepository.findAllByEmailContainsIgnoreCase(value);
+    }
+
+    public List<FindAllResponseDto> findAll() {
+     List<User> users= userRepository.findAll();
+     return Mapper.toFindAllResponseDto(users);
     }
 }
