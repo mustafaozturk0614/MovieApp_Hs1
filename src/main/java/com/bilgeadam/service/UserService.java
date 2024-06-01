@@ -53,6 +53,10 @@ public class UserService {
     }
 
     public RegisterResponseDto register4(RegisterRequestDto dto) {
+//        Boolean checkEmail=userRepository.existsByEmail(dto.getEmail());
+//        if (checkEmail){
+//            throw  new RuntimeException("bu emaille kayıtlı kullanıcı var");
+//        }
         User user= IUserMapper.INSTANCE.toUser(dto);
         userRepository.save(user);
         return  IUserMapper.INSTANCE.toRegisterResponseDto(user);

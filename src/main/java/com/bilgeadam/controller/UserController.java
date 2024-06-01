@@ -7,6 +7,7 @@ import com.bilgeadam.dto.response.LoginResponseDto;
 import com.bilgeadam.dto.response.RegisterResponseDto;
 import com.bilgeadam.entity.User;
 import com.bilgeadam.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -62,7 +63,7 @@ public class UserController {
         return ResponseEntity.ok( userService.register4(dto));
     }
     @PostMapping("/register3")
-    public ResponseEntity<RegisterResponseDto> register3(@RequestBody RegisterRequestDto dto) {
+    public ResponseEntity<RegisterResponseDto> register3(@RequestBody @Valid RegisterRequestDto dto) {
         return ResponseEntity.ok( userService.register4(dto));
     }
 

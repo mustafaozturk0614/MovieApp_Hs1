@@ -13,6 +13,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
     Optional<User> findOptionalByEmailAndPassword(String email, String password);
 
     Boolean   existsByEmailAndPassword(String email, String password);
+    Boolean  existsByEmail(String email);
 
     //Kullanıcıları isme göre sıralı getiriniz
     List<User> findAllByOrderByName();
