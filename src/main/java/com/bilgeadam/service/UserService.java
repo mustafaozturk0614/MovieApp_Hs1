@@ -1,9 +1,12 @@
 package com.bilgeadam.service;
 
+import com.bilgeadam.dto.request.LoginRequestDto;
 import com.bilgeadam.dto.request.RegisterRequestDto;
 import com.bilgeadam.dto.response.FindAllResponseDto;
+import com.bilgeadam.dto.response.LoginResponseDto;
 import com.bilgeadam.dto.response.RegisterResponseDto;
 import com.bilgeadam.entity.User;
+import com.bilgeadam.mapper.IUserMapper;
 import com.bilgeadam.mapper.Mapper;
 import com.bilgeadam.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -46,7 +49,13 @@ public class UserService {
         User user= Mapper.toUser(dto);
         userRepository.save(user);
         return  Mapper.toRegisterResponseDto(user);
+        //return  Mapper.toRegisterResponseDto(userRepository.save(Mapper.toUser(dto)));
+    }
 
+    public RegisterResponseDto register4(RegisterRequestDto dto) {
+        User user= IUserMapper.INSTANCE.toUser(dto);
+        userRepository.save(user);
+        return  IUserMapper.INSTANCE.toRegisterResponseDto(user);
         //return  Mapper.toRegisterResponseDto(userRepository.save(Mapper.toUser(dto)));
     }
 
@@ -77,5 +86,21 @@ public class UserService {
     public List<FindAllResponseDto> findAll() {
      List<User> users= userRepository.findAll();
      return Mapper.toFindAllResponseDto(users);
+    }
+    public List<FindAllResponseDto> findAll2() {
+        List<User> users= userRepository.findAll();
+        return IUserMapper.INSTANCE.toFindAllResponseDtos(users);
+    }
+
+    public LoginResponseDto login2(LoginRequestDto dto) {
+        Optional<User> user= userRepository.findOptionalByEmailAndPassword(dto.getEmail(), dto.getPassword());
+        LoginResponseDto loginResponseDto;
+        if(user.isEmpty()){
+            loginResponseDto=LoginResponseDto.builder().message("Kullanıcı adı veya şifre hatalı").build();
+        }else {
+            loginResponseDto = IUserMapper.INSTANCE.toLoginResponseDto(user.get());
+            loginResponseDto.setMessage("Giriş Başarılı");
+        }
+       return loginResponseDto;
     }
 }

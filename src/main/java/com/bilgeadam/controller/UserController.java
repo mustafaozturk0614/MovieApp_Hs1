@@ -1,15 +1,15 @@
 package com.bilgeadam.controller;
 
+import com.bilgeadam.dto.request.LoginRequestDto;
 import com.bilgeadam.dto.request.RegisterRequestDto;
 import com.bilgeadam.dto.response.FindAllResponseDto;
+import com.bilgeadam.dto.response.LoginResponseDto;
 import com.bilgeadam.dto.response.RegisterResponseDto;
 import com.bilgeadam.entity.User;
 import com.bilgeadam.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -59,9 +59,12 @@ public class UserController {
 
     @GetMapping("/register2")
     public ResponseEntity<RegisterResponseDto> register2(RegisterRequestDto dto) {
-        return ResponseEntity.ok( userService.register2(dto));
+        return ResponseEntity.ok( userService.register4(dto));
     }
-
+    @PostMapping("/register3")
+    public ResponseEntity<RegisterResponseDto> register3(@RequestBody RegisterRequestDto dto) {
+        return ResponseEntity.ok( userService.register4(dto));
+    }
 
     /*
         emaile gore kullanıcı getiren end point
@@ -79,7 +82,18 @@ public class UserController {
         }
         return ResponseEntity.ok(check);
     }
+    /*
+    login2 metodu bir request dto yaratıp dısarıdan verileri alalım
+    ve response dto ise şu verileri donelim id si ile message donelim
+    message==> login basarılı ise
+     giriş başarılı değil ise kullancı adı veya şifre hatalı olsun
 
+     */
+
+    @GetMapping("/login2")
+    public ResponseEntity<LoginResponseDto> login2(LoginRequestDto dto){
+        return  ResponseEntity.ok( userService.login2(dto));
+    }
 
     @GetMapping("/find-all-by-order-by-name")
     public ResponseEntity<List<User>> findAllByOrderByName(){
@@ -96,7 +110,9 @@ public class UserController {
 
     @GetMapping("/find-all")
     public ResponseEntity<List<FindAllResponseDto>> findAll(){
-        return ResponseEntity.ok( userService.findAll());
+        return ResponseEntity.ok( userService.findAll2());
     }
+
+
 
 }
