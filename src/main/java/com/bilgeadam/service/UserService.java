@@ -6,6 +6,8 @@ import com.bilgeadam.dto.response.FindAllResponseDto;
 import com.bilgeadam.dto.response.LoginResponseDto;
 import com.bilgeadam.dto.response.RegisterResponseDto;
 import com.bilgeadam.entity.User;
+import com.bilgeadam.exception.ErrorType;
+import com.bilgeadam.exception.MovieAppException;
 import com.bilgeadam.mapper.IUserMapper;
 import com.bilgeadam.mapper.Mapper;
 import com.bilgeadam.repository.UserRepository;
@@ -100,7 +102,7 @@ public class UserService {
         Optional<User> user= userRepository.findOptionalByEmailAndPassword(dto.getEmail(), dto.getPassword());
         LoginResponseDto loginResponseDto;
         if(user.isEmpty()){
-            loginResponseDto=LoginResponseDto.builder().message("Kullanıcı adı veya şifre hatalı").build();
+                throw  new MovieAppException(ErrorType.LOGIN_ERROR);
         }else {
             loginResponseDto = IUserMapper.INSTANCE.toLoginResponseDto(user.get());
             loginResponseDto.setMessage("Giriş Başarılı");
