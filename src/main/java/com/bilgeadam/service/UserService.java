@@ -111,4 +111,8 @@ public class UserService {
         }
        return loginResponseDto;
     }
+
+    public List<User> saveAll(List<User> users) {
+       return userRepository.saveAll(users);
+    }
 }

@@ -26,6 +26,7 @@ public class Movie {
     private String name;
     private String country;
     private double rating;
+    @Column(columnDefinition = "TEXT")
     private String summary;
     private LocalDate premiered;
     private String url;
