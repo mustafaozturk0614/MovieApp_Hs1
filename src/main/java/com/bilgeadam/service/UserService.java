@@ -12,6 +12,7 @@ import com.bilgeadam.mapper.IUserMapper;
 import com.bilgeadam.mapper.Mapper;
 import com.bilgeadam.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -55,10 +56,11 @@ public class UserService {
     }
 
     public RegisterResponseDto register4(RegisterRequestDto dto) {
-//        Boolean checkEmail=userRepository.existsByEmail(dto.getEmail());
-//        if (checkEmail){
-//            throw  new RuntimeException("bu emaille kayıtlı kullanıcı var");
-//        }
+        Boolean checkEmail=userRepository.existsByEmail(dto.getEmail());
+        if (checkEmail){
+            throw  new MovieAppException(ErrorType.USERNAME_ALREADY_EXISTS);
+        }
+
         User user= IUserMapper.INSTANCE.toUser(dto);
         userRepository.save(user);
         return  IUserMapper.INSTANCE.toRegisterResponseDto(user);

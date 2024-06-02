@@ -20,7 +20,7 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToMany
-    private List<Genre> genre;
+    private List<Genre> genres;
     private String language;
     private String image;
     private String name;
