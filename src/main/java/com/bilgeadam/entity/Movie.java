@@ -1,10 +1,8 @@
 package com.bilgeadam.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -31,6 +29,7 @@ public class Movie {
     private LocalDate premiered;
     private String url;
     @OneToMany(mappedBy ="movie",cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<MovieComment> comments;
 
 

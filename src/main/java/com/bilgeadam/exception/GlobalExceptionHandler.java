@@ -24,6 +24,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ErrorMessage> handleRunTimeException(RuntimeException e){
+        e.printStackTrace();
         log.error("hata mesajı: "+e.getMessage());
         ErrorMessage errorMessage=creteErrorMessage(ErrorType.UNEXPECTED_ERROR,e);
         return  new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);

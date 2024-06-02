@@ -32,4 +32,7 @@ public class MovieService {
         }
         return  movie.get();
     }
+  public  List<Movie> findAllByRatingOrderByRatingDesc(double rating){
+        return movieRepository.findAllByRatingGreaterThan(rating);
+    }
 }
