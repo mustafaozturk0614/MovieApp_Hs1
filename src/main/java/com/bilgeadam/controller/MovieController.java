@@ -21,4 +21,8 @@ public class MovieController {
   public ResponseEntity<List<Movie>> findAllByRatingOrderByRatingDesc(double rating){
         return ResponseEntity.ok(movieService.findAllByRatingOrderByRatingDesc(rating));
     }
+    @GetMapping("find-all")
+    public ResponseEntity<List<Movie>> findAll(){
+        return ResponseEntity.ok(movieService.findAll());
+    }
 }

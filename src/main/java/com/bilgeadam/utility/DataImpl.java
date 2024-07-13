@@ -36,6 +36,7 @@ public class DataImpl  implements ApplicationRunner {
     private final GenreService genreService;
     @Override
     public void run(ApplicationArguments args) throws Exception {
+
       getAllMovies();
       createUser();
     }

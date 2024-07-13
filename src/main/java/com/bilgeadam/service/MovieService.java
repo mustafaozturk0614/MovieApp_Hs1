@@ -35,4 +35,8 @@ public class MovieService {
   public  List<Movie> findAllByRatingOrderByRatingDesc(double rating){
         return movieRepository.findAllByRatingGreaterThan(rating);
     }
+
+    public List<Movie> findAll() {
+        return movieRepository.findAll();
+    }
 }
