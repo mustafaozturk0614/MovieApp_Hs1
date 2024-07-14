@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5442/moviedb
+    url: jdbc:postgresql://hs1postgres/moviedb
     username: postgres
     password: root
     driver-class-name: org.postgresql.Driver
